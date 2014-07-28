@@ -23,7 +23,7 @@ app.post('/signup', function(req, res) {
 	//save the user to the database
 	user.save()
 
-	res.send('You have signed up for wingzingly!')
+	res.render('signup', {user: user})
 })
 
 app.get('/viewusers', function(req, res) {
@@ -42,6 +42,23 @@ app.get('/viewusers', function(req, res) {
 
 
 })
+
+
+app.post('/edit', function(req, res) {
+	// change this to update the user's email
+	User.findOneAndUpdate({_id: req.body.id}, {$set: {email: req.body.email}}, function(error, user) {
+		if(error){
+			res.send("Error.")
+		}
+		else {
+			console.log("req.body._id:", req.body._id)
+			console.log("req.body.email:", req.body.email)
+			user.save()
+			res.send("Saved as " +user.email)
+		}
+	})
+})
+
 
 var server = app.listen(9902, function() {
 	console.log('Express server listening on port ' + server.address().port);

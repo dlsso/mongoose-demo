@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	h1 Wingzingly
+	p Success!
+	p Addeded #{user.email}
+	P Change your information if you want.
+	form(method='post' action='/edit')
+		input(type='text' name='email' placeholder='#{user.email}')
+		input(type='hidden' name='id', value='#{user._id}')
+		input(type='submit' value='EDIT')
